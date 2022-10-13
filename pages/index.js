@@ -13,7 +13,7 @@ export default function Home() {
       <div className="flex min-h-[50vh] flex-col md:flex-row">
         <div className="w-full md:w-[50%] relative md:py-[3rem] md:pr-[1rem] md:pl-[5rem] hidden md:flex">
           <div className="w-[320px] h-[200px] m-auto flex relative">
-            <Image layout="fill" src="https://images2.imgbox.com/7a/54/y9wrGEnN_o.png" />
+            <Image layout="fill" alt="alternate_img" src="https://images2.imgbox.com/7a/54/y9wrGEnN_o.png" />
           </div>
         </div>
         <div className="w-full md:w-[50%] text-teal-700 relative flex flex-col md:py-3rem md:pr-[6rem] pt-[2rem] mb-[1rem]">
@@ -32,7 +32,7 @@ export default function Home() {
         </div>
         <div className="w-full md:w-[50%] relative md:py-[3rem] md:pr-[1rem] md:pl-[5rem] md:hidden flex">
           <div className="w-[320px] h-[200px] m-auto flex relative">
-            <Image layout="fill" src="https://images2.imgbox.com/7a/54/y9wrGEnN_o.png" />
+            <Image layout="fill" alt="alternate_img" src="https://images2.imgbox.com/7a/54/y9wrGEnN_o.png" />
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ export default function Home() {
         </div>
         <div className="w-full md:w-[50%] relative md:py-[3rem] md:pl-[1rem] md:pr-[5rem] flex">
           <div className="w-[350px] h-[180px] m-auto flex relative">
-            <Image layout="fill" src="https://images2.imgbox.com/4b/84/f5rjK0QK_o.png" />
+            <Image layout="fill" alt="alternate_img" src="https://images2.imgbox.com/4b/84/f5rjK0QK_o.png" />
           </div>
         </div>
       </div>
