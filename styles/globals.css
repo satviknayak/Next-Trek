@@ -1,3 +1,12 @@
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Noto+Serif&family=Poppins:wght@300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 
+font-family: 'Comforter Brush', cursive;
+font-family: 'Noto Serif', serif;
+font-family: 'Poppins', sans-serif;
+*/

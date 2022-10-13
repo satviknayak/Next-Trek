@@ -17,7 +17,7 @@ export const Banners = [
     },
     {
         id:5,
-        src:"https://images2.imgbox.com/f3/da/xffZvyVk_o.jpg",
+        src:"https://images2.imgbox.com/7c/f5/LRFicuEY_o.jpg",
     },
     {
         id:6,
