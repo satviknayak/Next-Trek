@@ -8,7 +8,7 @@ export default function index() {
         <div class=" container w-50 lg:w-3/5 mx-auto flex flex-wrap">
         <div class="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl  mt-4 mx-20 items-center">
           <div class="h-auto w-auto">
-            <Image  width={450} height={300} className="object-center" src={'/../public/dest-illustration.png'} />
+            <Image  width={450} height={300} className="object-center" alt="destination_img" src={'/../public/dest-illustration.png'} />
           </div>
           <div class="w-auto h-auto py-4 px-6 text-gray-800 flex flex-col justify-between">
           <h3 class="font-semibold text-lg leading-tight truncate">Destination Name</h3>
