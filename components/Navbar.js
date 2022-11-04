@@ -19,7 +19,7 @@ export default function Navbar() {
     };
   }, []);
   return (
-    <div className={`w-full h-[4rem] flex ${Bg ? 'bg-teal-600' : 'bg-gradient-to-b from-teal-600'} fixed top-0 z-[99] px-[2rem] sm:px-[1rem] align-center justify-between`}>
+    <div className={`w-full h-[4rem] flex ${Bg ? 'bg-teal-600' : ''} fixed top-0 z-[99] px-[2rem] sm:px-[1rem] align-center justify-between`}>
         <Link className='my-auto' href='/'>Next Trek</Link>
         <div className='bg-none my-auto flex'>
         <button onClick={() => {setNavShow(!navShow)}} className='md:hidden w-8 h-8 z-[102]'>

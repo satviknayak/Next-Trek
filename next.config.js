@@ -5,6 +5,8 @@ module.exports = {
   images: {
     domains: [
       "images2.imgbox.com",
+      "cdn.britannica.com",
+      "www.w3schools.com",
     ],
   },
 }

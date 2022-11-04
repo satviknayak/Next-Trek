@@ -10,3 +10,26 @@ font-family: 'Comforter Brush', cursive;
 font-family: 'Noto Serif', serif;
 font-family: 'Poppins', sans-serif;
 */
+
+.bg-banner-f{
+    background-image: url('../public/banners/banner1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg-banner-s{
+    background-image: url('../public/banners/banner2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;   
+}
+.bg-banner-light{
+    background-image: url('../public/banners/banner-light.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;    
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
