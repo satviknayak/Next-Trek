@@ -1,13 +1,21 @@
-import React from 'react'
 import Image from 'next/image'
+import { useState } from 'react'
+
+import Navbar from '../components/Navbar'
 
 export default function profile() {
+
+  const [name,setName] = useState("")
+
+  
+
   return (
-    <div className='flex w-full h-fit pt-[4rem]'>
+    <div className='flex w-full h-fit'>
+      <Navbar />
         <div className='m-auto my-[100px] flex flex-col md:flex-row md:w-[80%] w-[95%] h-fit rounded-lg shadow-xl relative overflow-hidden'>
             <div className='md:w-[40%] w-full flex h-full'>
               <div className='md:mt-[100px] mt-[30px] w-fit h-fit flex flex-col mx-auto'>
-                <div className='relative w-[150px] h-[150px] flex rounded-full overflow-hidden'><Image layout='fill' objectFit='cover' objectPosition={'center'} src={'/../public/images/profileimg.jpg'} /></div>
+                <div className='relative w-[150px] h-[150px] flex rounded-full overflow-hidden'><Image layout='fill' objectFit='cover' objectPosition={'center'} src={'https://res.cloudinary.com/nexttrek/image/upload/c_scale,q_auto:best,w_500/v1670606124/Profile/IMG20221101172843_1_adera8.jpg'} /></div>
                 <h4 className=' mt-[20px] text-slate-900 w-[150px] text-[0.85rem] text-center'>Update Profile Image? <span className='text-violet-900'>Click Here</span></h4>
               </div>
             </div>
@@ -16,7 +24,7 @@ export default function profile() {
               <form className='w-full flex flex-col mb-[20px]'>
                 
                 <div className='w-[80%] flex mx-auto'><label className='flex-col flex my-[10px] w-full'> <span>Email :</span>
-                  <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'email'}/>
+                  <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'email'} readOnly/>
                 </label></div>
                 <div className='w-[80%] flex mx-auto'><label className='flex-col flex my-[10px] w-full'> <span>Name :</span>
                   <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'text'}/>

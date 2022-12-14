@@ -6,63 +6,40 @@ import { useRouter } from 'next/router';
 
 import { AiOutlineClose } from "react-icons/ai";
 
-import { auth } from '../firebaseConfig'
-import { getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth,signUpUser,signInUser } from '../firebaseConfig'
+import {onAuthStateChanged} from 'firebase/auth';
 
+import ProfileCom from './ProfileCom';
 
 
 
 export default function Navbar() {
 
-  const [user,setUser] = useState(auth.currentUser)
+  const router = useRouter()
+
+  const [userCred,setUserCred] = useState(null);
+  
+  useEffect(()=>{
+    onAuthStateChanged(auth,(user)=>{
+      if(user){
+        setUserCred(user)
+      }else{
+        setUserCred(null)
+      } 
+    })
+  })
 
   
-
-  const signUp = () => {
-    createUserWithEmailAndPassword(auth,email,password).then((userCredentials)=>{
-      const user = userCredentials.user;
-      console.log(user)
-    }).catch((err)=>{
-      console.log(err.code)
-      console.log(err.message)
-    });
-    setUser(auth.currentUser)
-  }
-
-  const signIn = () => {
-    signInWithEmailAndPassword(auth,email,password).then((userCredentials)=>{
-      const user = userCredentials.user;
-      console.log(user)
-    }).catch((err)=>{
-      console.log(err.code)
-      console.log(err.message)
-    });
-    setUser(auth.currentUser)
-  }
-
-  const logOut = () => {
-    signOut(auth).then(()=>{
-      console.log("User Signed Out")
-    }).catch((err)=>{
-      console.log(err.code)
-      console.log(err.message)
-    })
-    setUser(auth.currentUser)
-  }
-
-
-
 
   const [Bg, setBG] = useState(false);
   const [navShow,setNavShow] = useState(false);
   const [loginShow,setLoginShow] = useState(false);
   const [signupShow,setSignupShow] = useState(false);
 
+  const [name,setName] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [confirmPassword,setConfirmPassword] = useState("");
-  
-  const router = useRouter();
 
   useEffect(() => {
     if (router.pathname === '/profile' || router.pathname === '/manage-destinations')
@@ -78,7 +55,7 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll",(scroll));
     };
-  }, []);
+  }, [userCred]);
 
 
   return (
@@ -93,26 +70,29 @@ export default function Navbar() {
         <ul className={`bg-violet-600 h-screen fixed right-0 top-0 pt-[4rem] md:p-0 w-[200px] text-center md:w-auto md:h-fit md:bg-transparent md:static md:my-auto md:flex ${navShow ? 'translate-x-0':'translate-x-[200px]' } transition ease-in-out duration-[1s] md:translate-x-0`}>
             <li className='md:mx-[25px] md:my-auto mx-[10px] my-[15px] cursor-pointer'><Link href='/destinations/'><span className='text-slate-200 hover:text-white font-bold hover:underline underline-offset-4 transition-all ease-in-out duration-[1s]'>Destinations</span></Link></li>
             <li className='md:mx-[25px] md:my-auto mx-[10px] my-[15px] cursor-pointer'><Link href='/travel-blogs/'><span className='text-slate-200 hover:text-white font-bold hover:underline underline-offset-4 transition-all ease-in-out duration-[1s]'>Travel Blogs</span></Link></li>
-            {user !== null ? 
-            <button className='md:mx-[25px] md:my-auto mx-[10px] my-[15px] bg-[#00000090] rounded-md text-white px-[15px] py-[5px] cursor-pointer' onClick={()=>{logOut();}}>LogOut</button> 
+            {userCred !== null ? 
+              <ProfileCom user={userCred}/>
             :
-            <button className='md:mx-[25px] md:my-auto mx-[10px] my-[15px] bg-[#00000090] rounded-md text-white px-[15px] py-[5px] cursor-pointer' onClick={()=>{setLoginShow(!loginShow)}}>Login</button> 
+              <button className='md:mx-[25px] md:my-auto mx-[10px] my-[15px] bg-[#00000090] rounded-md text-white px-[15px] py-[5px] cursor-pointer' onClick={()=>{setLoginShow(!loginShow)}}>Login</button> 
             }
-        </ul>
+</ul>
         </div>
 
       <div className={` w-full h-screen fixed top-0 left-0 z-[500] bg-[#00000090] ${loginShow ? 'flex': 'hidden'}`}>
         <div className='w-[300px] h-[400px] bg-white flex m-auto rounded-lg p-[15px] flex-col relative'>
           <h1 className='text-center font-bold text-slate-900 text-[2rem] w-full my-[20px]'>Login</h1>
-          <form className='flex flex-col'>
+          <div className='flex flex-col'>
             <label className='flex-col flex my-[10px]'> <span>Email :</span>
               <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'email'} value={email} onChange={(e)=>{setEmail(e.target.value)}} />
             </label>
             <label className='flex-col flex my-[10px]'> <span>Password :</span>
               <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'password'} value={password} onChange={(e)=>{setPassword(e.target.value)}} />
             </label>
-            <button className='w-[80%] py-[5px] my-[10px] mx-auto bg-blue-800 text-center text-white rounded-sm' onClick={()=>{signIn()}}>Submit</button>
-          </form>
+            <button className='w-[80%] py-[5px] my-[10px] mx-auto bg-blue-800 text-center text-white rounded-sm' onClick={async()=>{
+              await signInUser({email:email,password:password})
+              setLoginShow(!loginShow)
+            }}>Submit</button>
+          </div>
           <AiOutlineClose className='text-[1.5rem] absolute top-[10px] right-[10px] cursor-pointer' onClick={()=>{setLoginShow(false);setEmail("");setPassword("")}} />
           <span className='text-[0.85rem] w-full text-center mt-[10px]'>New User? <i className='text-sky-700 cursor-pointer' onClick={()=>{setLoginShow(false);setSignupShow(true);setEmail("");setPassword("")}}>SignUp here!</i></span>
           <span className='text-[0.85rem] w-full text-center text-sky-700 cursor-pointer'>Forgot Password?</span>
@@ -122,7 +102,10 @@ export default function Navbar() {
       <div className={` w-full h-screen fixed top-0 left-0 z-[500] bg-[#00000090] ${signupShow ? 'flex': 'hidden'}`}>
         <div className='w-[300px] min-h-[400px] bg-white flex m-auto rounded-lg p-[15px] flex-col relative'>
           <h1 className='text-center font-bold text-slate-900 text-[2rem] w-full my-[20px]'>SignUp</h1>
-          <form className='flex flex-col'>
+          <div className='flex flex-col'>
+            <label className='flex-col flex my-[10px]'> <span>Name :</span>
+              <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'text'} value={name} onChange={(e)=>{setName(e.target.value)}} />
+            </label>
             <label className='flex-col flex my-[10px]'> <span>Email :</span>
               <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'email'} value={email} onChange={(e)=>{setEmail(e.target.value)}} />
             </label>
@@ -132,10 +115,13 @@ export default function Navbar() {
             <label className='flex-col flex my-[10px]'> <span>Confirm Password :</span>
               <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'password'} value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
             </label>
-            <button className='w-[80%] py-[5px] my-[10px] mx-auto bg-blue-800 text-center text-white rounded-sm' onClick={()=>{signUp()}}>Submit</button>
-          </form>
+            <button className='w-[80%] py-[5px] my-[10px] mx-auto bg-blue-800 text-center text-white rounded-sm' onClick={async()=>{
+              await signUpUser({email:email,password:password,name:name})
+              setSignupShow(!signupShow)
+            }}>Submit</button>
+          </div>
           <AiOutlineClose className='text-[1.5rem] absolute top-[10px] right-[10px] cursor-pointer' onClick={()=>{setSignupShow(false);setEmail("");setConfirmPassword("");setPassword("")}} />
-          <span className='text-[0.85rem] w-full text-center mt-[10px]'>Already a User? <i className='text-sky-700 cursor-pointer' onClick={()=>{setLoginShow(true);setSignupShow(false);setEmail("");setConfirmPassword("");setPassword("")}}>Login here!</i></span>
+          <span className='text-[0.85rem] w-full text-center mt-[10px]'>Already a User? <i className='text-sky-700 cursor-pointer' onClick={()=>{setLoginShow(true);setSignupShow(false);setEmail("");setConfirmPassword("");setPassword("");setName("")}}>Login here!</i></span>
         </div>
       </div>
 

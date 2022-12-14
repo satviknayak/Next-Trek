@@ -7,6 +7,7 @@ module.exports = {
       "images2.imgbox.com",
       "cdn.britannica.com",
       "www.w3schools.com",
+      "res.cloudinary.com",
     ],
   },
 }
