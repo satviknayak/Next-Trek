@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar'
+import DestinationCard from '../../components/DestinationCard';
 import { useRouter } from 'next/router';
 import { database } from '../../firebaseConfig';
 import { collection, getDocs,getDoc } from 'firebase/firestore';
@@ -11,7 +12,7 @@ const dbInstance = collection(database,'Destinations');
 
 export default function index() {
 
-  const [DestDetail,setDestDetail] = useState()
+  const [DestDetail,setDestDetail] = useState({})
   const [ShowDest,setShowDest] = useState(false)
 
   const [DestList,setDestList] = useState([])
@@ -31,6 +32,8 @@ export default function index() {
 
   return (
     <div>
+
+      <DestinationCard show={ShowDest} setShow={setShowDest} details={DestDetail} />
       <Navbar/>
       <div className="bg-banner-f flex md:h-[400px] h-[300px] w-full relative">
         <div className="w-full h-full flex bg-black opacity-40 absolute top-0 left-0"></div>

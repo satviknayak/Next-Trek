@@ -7,7 +7,6 @@ import { signOut } from "firebase/auth"
 
 export default function ProfileCom({user}) {
     const [ShowPopup,setShowPopup] = useState(false)
-    console.log(user)
   return (
     <div className="mx-[50px] relative">
         <span className="relative flex rounded-full w-[30px] h-[30px] my-auto overflow-auto" onClick={()=>{setShowPopup(!ShowPopup)}}>
