@@ -89,7 +89,7 @@ export default function profile() {
         <div className='m-auto my-[100px] flex flex-col md:flex-row md:w-[80%] w-[95%] h-fit rounded-lg shadow-xl relative overflow-hidden'>
             <div className='md:w-[40%] w-full flex h-full'>
               <div className='md:mt-[100px] mt-[30px] w-fit h-fit flex flex-col mx-auto'>
-                <div className='relative w-[150px] h-[150px] flex rounded-full overflow-hidden'><Image layout='fill' objectFit='cover' objectPosition={'center'} src={photoUrl === '' ? '/../public/images/profileimg.jpg' : photoUrl  } /></div>
+                <div className='relative w-[150px] h-[150px] flex rounded-full overflow-hidden'><Image layout='fill' objectFit='cover' objectPosition={'center'} src={photoUrl ? photoUrl : '/../public/images/profileimg.jpg'  } /></div>
                 <h4 className=' mt-[20px] text-slate-900 w-[150px] text-[0.85rem] text-center'>Update Profile Image?
                   <form className='flex' method="post" onChange={handleOnChange} onSubmit={handleOnSubmit}>
                     <input type={'file'} className='text-[0.8rem]' name='file'/>

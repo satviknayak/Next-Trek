@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { AiOutlineClose } from 'react-icons/ai';
 import { MdAddCircleOutline,MdClose,MdOutlineCreate,MdDeleteOutline } from 'react-icons/md';
 import Navbar from '../components/Navbar'
-import { app, database } from '../firebaseConfig';
+import { database } from '../firebaseConfig';
 import { collection, addDoc, getDocs, updateDoc,doc } from 'firebase/firestore';
 
 import 'react-quill/dist/quill.snow.css';
