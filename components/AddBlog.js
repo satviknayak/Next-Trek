@@ -18,10 +18,10 @@ export default function AddBlog({show,setShow}) {
     const router =  useRouter()
 
     const [title,setTitle] = useState('')
-    const [username,setUsername] = useState(usrctx.currentUser.displayName)
+    const [username,setUsername] = useState(usrctx.currentUser?.displayName)
     const [description,setDescription] = useState('')
     const [date,setDate] = useState('')
-    const [Uuid,setUuid] = useState(usrctx.currentUser.uid)
+    const [Uuid,setUuid] = useState(usrctx.currentUser?.uid)
 
     {/*function to add new Destination*/}
     const saveNewBlog = (data) => {
@@ -36,7 +36,7 @@ export default function AddBlog({show,setShow}) {
             <h1 className='w-full text-center font-bold text-[2rem] text-violet-700 mt-[30px]'>Add Blog</h1>
             <div className='flex flex-col'>
                 <div className='w-[80%] flex mx-auto'><label className='flex-col flex my-[10px] w-full'> <span>Username :</span>
-                  <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' readonly type={'text'} value={username} />
+                  <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'text'} value={username} onChange={(e)=>{setUsername(e.target.value)}} />
                 </label></div>
                 <div className='w-[80%] flex mx-auto'><label className='flex-col flex my-[10px] w-full'> <span>Date:</span>
                   <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'date'} value={date} onChange={(e)=>{setDate(e.target.value)}} />

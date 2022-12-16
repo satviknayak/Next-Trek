@@ -76,7 +76,7 @@ export default function Home() {
         <h1 className='md:text-center text-left ml-[20px] md:ml-0 text-[2.5rem] font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500'>Travel Blogs</h1>
         <div className='w-full flex h-fit overflow-x-auto overflow-y-hidden mb-[50px]'>
         {BlogList.map((a,index)=>(
-          <div key={index} className='flex flex-col w-[250px] sm:w-[500px] h-fit p-[5px] sm:px-[15px] mx-[auto] my-[25px] rounded-xl shadow-xl border-[1px] border-slate-500'>
+          <div key={index} className='flex flex-col w-[250px] sm:w-[500px] h-fit p-[5px] sm:px-[15px] mx-[10px] my-[25px] rounded-xl shadow-xl border-[1px] border-slate-500'>
           <div className='flex w-full h-fit justify-between'>
             <div>
               <h1 className='text-[0.95rem] font-bold'>{a.title}</h1>

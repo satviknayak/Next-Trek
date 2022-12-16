@@ -6,7 +6,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { MdAddCircleOutline,MdClose,MdOutlineCreate,MdDeleteOutline } from 'react-icons/md';
 import Navbar from '../components/Navbar'
 import { database } from '../firebaseConfig';
-import { collection, addDoc, getDocs, updateDoc,doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc,doc,deleteDoc } from 'firebase/firestore';
 
 import 'react-quill/dist/quill.snow.css';
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
@@ -21,6 +21,7 @@ export default function managedestinations() {
   const [newDest,setNewDest] = useState(false);
   const [showUpdate,setShowUpdate] = useState(false);
   const [showDelete,setShowDelete] = useState(false);
+  const [deleteInfo,setDeleteInfo] = useState('')
 
   const [id,setId] = useState('')
   const [name,setName] = useState('')
@@ -78,8 +79,8 @@ export default function managedestinations() {
 
 
   {/*function to delete Destination*/}
-  const deleteDest = (id) => {
-    const collectionById = doc(database,'Destinations',id)
+  const deleteDest = () => {
+    const collectionById = doc(database,'Destinations',deleteInfo)
     deleteDoc(collectionById).then(()=>{router.reload(window.location.pathname)})
   }
 
@@ -122,7 +123,7 @@ export default function managedestinations() {
                     <td className='border-[1px] px-[10px] py-[2px]'>{index+1}</td>
                     <td className='border-[1px] px-[10px] py-[2px]'>{e.name}</td>
                     <td className='border-[1px] px-[10px] py-[2px]'><MdOutlineCreate className=' m-auto cursor-pointer' onClick={()=>{setShowUpdate(!showUpdate); setName(e.name); setDescription(e.description); setTourArr(e.tourArr); setDestUrl(e.photoUrl);setId(e.id)}}/></td>
-                    <td className='border-[1px] px-[10px] py-[2px]'><MdDeleteOutline className=' m-auto cursor-pointer' onClick={()=>{setShowDelete(!showDelete);setDeleteInfo({id:e.id,name:e.name})}}/></td>
+                    <td className='border-[1px] px-[10px] py-[2px]'><MdDeleteOutline className=' m-auto cursor-pointer' onClick={()=>{setShowDelete(!showDelete);setDeleteInfo(e.id)}}/></td>
                   </tr>
                 ))}
               </tbody>
@@ -218,6 +219,14 @@ export default function managedestinations() {
         </div>
 
         {/* Modal for deleting Destinations */}
+        <div className={`fixed w-full h-screen top-0 bg-[#00000090] ${showDelete? 'flex':'hidden'} `}>
+          <div className='bg-white w-fit h-fit mt-[100px] mx-auto flex flex-col p-[10px] rounded-xl'>
+            <h1 className='mb-[10px] text-red-600 font-bold text-center text-[1.2rem]'>Delete destination</h1>
+            <p>Are you sure you want to delete the Destination?</p>
+            <button className='text-white bg-red-600 py-[5px] px-[10px]' onClick={()=>{deleteDest();setShowDelete(!showDelete)}}>Delete</button>
+            <button className='' onClick={()=>{setShowDelete(!showDelete)}}>Cancel</button>
+          </div>
+        </div>
 
     </div>
   )

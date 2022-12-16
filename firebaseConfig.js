@@ -25,6 +25,7 @@ export async function signUpUser(data){
     data.uid = userCred.user.uid
     data.email = userCred.user.email
     data.name = name
+    data.is_admin = false
     data.photo = userCred.user.photoURL
     await addDoc(userColRef, data)
     return userCred.user

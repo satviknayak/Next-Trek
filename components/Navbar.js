@@ -100,7 +100,7 @@ export default function Navbar() {
       </div>
 
       <div className={` w-full h-screen fixed top-0 left-0 z-[500] bg-[#00000090] ${signupShow ? 'flex': 'hidden'}`}>
-        <div className='w-[300px] min-h-[400px] bg-white flex m-auto rounded-lg p-[15px] flex-col relative'>
+        <div className='w-[300px] h-[500px] bg-white flex m-auto rounded-lg p-[15px] flex-col relative overflow-y-auto scroll-hide'>
           <h1 className='text-center font-bold text-slate-900 text-[2rem] w-full my-[20px]'>SignUp</h1>
           <div className='flex flex-col'>
             <label className='flex-col flex my-[10px]'> <span>Name :</span>
@@ -115,9 +115,15 @@ export default function Navbar() {
             <label className='flex-col flex my-[10px]'> <span>Confirm Password :</span>
               <input className='w-full mx-auto bg-gray-300 h-[35px] rounded-sm outline-none border-none px-[7px]' type={'password'} value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value)}}/>
             </label>
+            <div className='text-red-300 flex flex-col my-[10px] text-[0.8rem]'>
+              {password.length >= 8 ? <></> : <span>*Password length is short. Minimum 8 characters!!</span>}
+              { password===confirmPassword ? <></> : <span>*Password and Confirm Password donot match</span>}
+            </div>
             <button className='w-[80%] py-[5px] my-[10px] mx-auto bg-blue-800 text-center text-white rounded-sm' onClick={async()=>{
-              await signUpUser({email:email,password:password,name:name})
-              setSignupShow(!signupShow)
+              if(password!=='' && confirmPassword!=='' && password.length >= 8 && password===confirmPassword){
+                await signUpUser({email:email,password:password,name:name})
+                setSignupShow(!signupShow)
+              }
             }}>Submit</button>
           </div>
           <AiOutlineClose className='text-[1.5rem] absolute top-[10px] right-[10px] cursor-pointer' onClick={()=>{setSignupShow(false);setEmail("");setConfirmPassword("");setPassword("")}} />
