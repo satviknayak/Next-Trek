@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import dynamic from "next/dynamic";
 import { useRouter } from 'next/router';
@@ -100,6 +101,9 @@ export default function managedestinations() {
 
   return (
     <div className="flex min-h-screen w-full pt-[5rem] relative">
+      <Head>
+        <title>Manage Destinations</title>
+      </Head>
       <Navbar/>
         <div className="flex w-full h-fit relative">
             <button className="absolute left-[1.5rem] sm:left-[2.5rem] text-[0.85rem] flex bg-violet-800 text-white p-[8px] rounded-md" onClick={()=>{setNewDest(!newDest)}}><MdOutlineCreate className='mx-[5px] my-auto'/>Add Destinations</button>

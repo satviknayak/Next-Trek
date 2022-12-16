@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar'
@@ -32,7 +33,9 @@ export default function index() {
 
   return (
     <div>
-
+      <Head>
+        <title>Destinations</title>
+      </Head>
       <DestinationCard show={ShowDest} setShow={setShowDest} details={DestDetail} />
       <Navbar/>
       <div className="bg-banner-f flex md:h-[400px] h-[300px] w-full relative">
