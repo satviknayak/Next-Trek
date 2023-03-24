@@ -14,7 +14,7 @@ import dynamic from "next/dynamic";
 const dbInstance = collection(database,'Blogs');
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 
-export default function index() {
+export default function TravelBlogs() {
 
   const router = useRouter()
 

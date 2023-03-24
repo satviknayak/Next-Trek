@@ -60,7 +60,7 @@ export default function Navbar() {
 
   return (
     <div className={`w-full h-[4.2rem] flex ${Bg ? 'bg-violet-800 shadow-lg' : ''} fixed top-0 z-[99] px-[2rem] sm:px-[1rem] align-center justify-between`}>
-        <Link className='my-auto' href='/'><div className='flex mt-[10px] cursor-pointer'><div className='w-[50px] h-[50px] relative'><Image layout='fill' objectFit='cover' objectPosition={'center'} src={'/../public/images/logo-white.png'} /></div><span className='text-[1.1rem] my-auto flex text-white'>Next-Trek</span></div></Link>
+        <Link className='my-auto' href='/'><div className='flex mt-[10px] cursor-pointer'><div className='w-[50px] h-[50px] relative'><Image layout='fill' objectFit='cover' objectPosition={'center'} src={'/../public/images/logo-white.png'} alt='profile' /></div><span className='text-[1.1rem] my-auto flex text-white'>Next-Trek</span></div></Link>
         <div className='bg-none my-auto flex'>
         <button onClick={() => {setNavShow(!navShow)}} className='md:hidden w-8 h-8 z-[102]'>
           <div className={`h-1 w-full bg-slate-100 transform transition duration-300 ease-in-out ${navShow ? "rotate-45 translate-y-3.5" : "my-[5px]"}`} />

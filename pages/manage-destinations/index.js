@@ -1,12 +1,13 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import dynamic from "next/dynamic";
 import { useRouter } from 'next/router';
 import { AiOutlineClose } from 'react-icons/ai';
 import { MdAddCircleOutline,MdClose,MdOutlineCreate,MdDeleteOutline } from 'react-icons/md';
-import Navbar from '../components/Navbar'
-import { database } from '../firebaseConfig';
+import Navbar from '../../components/Navbar'
+import { database,getUserProfile } from '../../firebaseConfig';
 import { collection, addDoc, getDocs, updateDoc,doc,deleteDoc } from 'firebase/firestore';
+import {AuthContext} from '../../context/AuthContext'
 
 import 'react-quill/dist/quill.snow.css';
 const ReactQuill = dynamic(import('react-quill'), { ssr: false })
@@ -14,9 +15,27 @@ const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 
 const dbInstance = collection(database,'Destinations');
 
-export default function managedestinations() {
+export default function ManageDestinations() {
 
   const router = useRouter()
+  const usrctx = useContext(AuthContext)
+  const [admin,setAdmin] = useState(true)
+
+  const getDetails = async() => {
+    const userProf = await getUserProfile(usrctx.currentUser.uid)
+    setAdmin(userProf.is_admin)
+  }
+  
+  useEffect(() => {
+    getDetails()
+  },[])
+
+  useEffect(()=>{
+    if( !admin ){
+      router.push({pathname:'/'})
+      return
+    }
+  },[admin])
 
   const [newDest,setNewDest] = useState(false);
   const [showUpdate,setShowUpdate] = useState(false);
@@ -98,6 +117,11 @@ export default function managedestinations() {
      getDestinations()
   }, [])
 
+  if(usrctx.currentUser === null){
+    router.push({pathname:'/'})
+    return
+  }
+
 
 
   return (
@@ -119,7 +143,7 @@ export default function managedestinations() {
               </thead>
               <tbody>
                 {DestList.map((e,index)=>(
-                  <tr>
+                  <tr key={index}>
                     <td className='border-[1px] px-[10px] py-[2px]'>{index+1}</td>
                     <td className='border-[1px] px-[10px] py-[2px]'>{e.name}</td>
                     <td className='border-[1px] px-[10px] py-[2px]'><MdOutlineCreate className=' m-auto cursor-pointer' onClick={()=>{setShowUpdate(!showUpdate); setName(e.name); setDescription(e.description); setTourArr(e.tourArr); setDestUrl(e.photoUrl);setId(e.id)}}/></td>
@@ -129,11 +153,6 @@ export default function managedestinations() {
               </tbody>
             </table>
         </div>
-        
-        
-        
-        
-        
         
         
         

@@ -11,7 +11,7 @@ import { collection, getDocs,getDoc } from 'firebase/firestore';
 const dbInstance = collection(database,'Destinations');
 
 
-export default function index() {
+export default function Destinations() {
 
   const [DestDetail,setDestDetail] = useState({})
   const [ShowDest,setShowDest] = useState(false)
@@ -47,7 +47,7 @@ export default function index() {
         {DestList.map((a,index)=>(
           <div key={index} className='flex flex-col p-[10px] rounded-xl w-fit h-fit m-auto hover:scale-[1.1] transition-all duration-[1s] ease-in-out' onClick={()=>{setDestDetail(a),setShowDest(!ShowDest)}}>
           <div className='w-[100px] h-[100px] sm:w-[200px] rounded-xl flex sm:h-[200px] relative overflow-hidden'>
-            <Image src={a.photoUrl} objectFit='cover' objectPosition={'center'} layout='fill' />
+            <Image src={a.photoUrl} objectFit='cover' objectPosition={'center'} layout='fill' alt={a.name} />
           </div>
           <h1 className='w-full text-center'>{a.name}</h1>
         </div>

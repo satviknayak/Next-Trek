@@ -21,7 +21,7 @@ export default function DestinationCard({show,setShow,details}) {
             <div dangerouslySetInnerHTML={{ __html: details.description }} className='text-[0.8rem] m-auto max-w-[400px] px-[10px]' ></div>
             <div className="flex w-full h-fit overflow-x-auto scroll-hide">
             {Arr?.map((a,index)=>(
-                <div className="m-[10px] flex flex-col">
+                <div className="m-[10px] flex flex-col" key={index}>
                     <div className="relative w-[150px] h-[100px]"><Image src={a.url} alt={a.name} layout='fill' objectFit="cover" objectPosition={'center'} /></div>
                     <h2>{a.name}</h2>
                 </div>
